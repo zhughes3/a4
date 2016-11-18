@@ -1,7 +1,31 @@
-/**
- * Created by michael on 11/17/16.
- */
+$(function() {
+    var imageEndpoint, userEndpoint;
+
+    function imageUploadResponse(data) {
+        if (!CloudServices.didRequestFail(data)) {
+            var json = data.result;
+
+            var processes = json['process_list'];
+
+            $.each(json, function(k, val) {
+                CloudServices.debug("Key is: ",k, " Val is: ", val);
+            });
+        } else {
+            alertMessage('Upload failed!');
+        }
+    };
+
+    imageEndpoint = CloudServices.endpoint('images');
+    userEndpoint = CloudServices.endpoint('users');
+
+    imageEndpoint.fileupload(imageUploadResponse, 'input#file');
+
+
+});
+
+/*
 $(document).ready(function (e) {
+
     $("#uploadimage").on('submit',(function(e) {
         e.preventDefault();
         $("#message").empty();
@@ -50,3 +74,4 @@ $(document).ready(function (e) {
         $('#previewing').attr('height', '230px');
     };
 });
+*/

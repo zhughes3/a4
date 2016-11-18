@@ -8,7 +8,7 @@ AJAX call posts image to PHP endpoint which slices the image into n pieces of eq
 1. *Backend*
  Php scripts to handle login and image-upload endpoints.
 
-2. * Frontend*
+2. *Frontend*
 A nice drawing canvas with tools for the userto easily recreate the image on-screen.
 3. *Testing*
 Test for different sizes when you slice the pictures.
