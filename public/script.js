@@ -1,77 +1,66 @@
 $(function() {
-    var imageEndpoint, userEndpoint;
 
-    function imageUploadResponse(data) {
-        if (!CloudServices.didRequestFail(data)) {
-            var json = data.result;
+    /**
+     * CONSUMER
+     A consumer invokes a capability by sending the corresponding request message, and the service either rejects the
+     request or performs the requested task before sending a response message back to the consumer (Figure 1)
+     */
 
-            var processes = json['process_list'];
+    var imageEndpoint = null, loginEndpoint = null, logoutEndpoint = null;
+    var output = $('div#formDataDiv');
 
-            $.each(json, function(k, val) {
-                CloudServices.debug("Key is: ",k, " Val is: ", val);
-            });
-        } else {
-            alertMessage('Upload failed!');
-        }
-    };
+    $('form#uploadimageForm').submit(function(e) {
 
-    imageEndpoint = CloudServices.endpoint('images');
-    userEndpoint = CloudServices.endpoint('users');
+        var theForm = $('form#uploadimageForm')[0];
+        var formData = new FormData(theForm);
 
-    imageEndpoint.fileupload(imageUploadResponse, 'input#file');
+        //TODO should do something about this
+        formData.append('secret_token', '1234567890');
+
+        var xhr = new XMLHttpRequest();
+
+        //var url = window.location.href + '/../api/RoutingEndpoint.php';
+
+        xhr.open('POST', '../api/RoutingEndpoint.php', true);
+        xhr.responseType = 'json';
+        xhr.onload = function(e) {
+            alert("Ok we have reached the onload point of the request.");
+            console.log(xhr.status);
+
+            if (this.status == 200) {
+                console.log("response", this.response);
+                //var response = new JSONObject(this.response);
+            }
+        };
 
 
-});
 
-/*
-$(document).ready(function (e) {
+        xhr.send(formData);
+        //xhr.send(formdata ? formdata : form.serialize());
 
-    $("#uploadimage").on('submit',(function(e) {
         e.preventDefault();
-        $("#message").empty();
-        $('#loading').show();
-        $.ajax({
-            url: "../api/ImageEndpoint.php", // Url to which the request is send
-            type: "POST",             // Type of request to be send, called as method
-            data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-            contentType: false,       // The content type used when sending data to the server.
-            cache: false,             // To unable request pages to be cached
-            processData:false,        // To send DOMDocument or non processed data file it is set to false
-            success: function(data)   // A function to be called if request succeeds
-            {
-                $('#loading').hide();
-                $("#message").html(data);
-            }
-        });
-    }));
 
-// Function to preview image after validation
-    $(function() {
-        $("#file").change(function() {
-            $("#message").empty(); // To remove the previous error message
-            var file = this.files[0];
-            var imagefile = file.type;
-            var match= ["image/jpeg","image/png","image/jpg"];
-            if(!((imagefile==match[0]) || (imagefile==match[1]) || (imagefile==match[2])))
-            {
-                $('#previewing').attr('src','noimage.png');
-                $("#message").html("<p id='error'>Please Select A valid Image File</p>"+"<h4>Note</h4>"+"<span id='error_message'>Only jpeg, jpg and png Images type allowed</span>");
-                return false;
-            }
-            else
-            {
-                var reader = new FileReader();
-                reader.onload = imageIsLoaded;
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
+        //prevent page from submitting
+        return false;
+
     });
-    function imageIsLoaded(e) {
-        $("#file").css("color","green");
-        $('#image_preview').css("display", "block");
-        $('#previewing').attr('src', e.target.result);
-        $('#previewing').attr('width', '250px');
-        $('#previewing').attr('height', '230px');
-    };
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#previewing').attr('src', e.target.result);
+                $('#previewing').attr('style', "max-width: 50%;");
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#file").change(function(){
+        readURL(this);
+    });
+
 });
-*/
+
