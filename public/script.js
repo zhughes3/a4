@@ -1,14 +1,5 @@
 $(function() {
 
-    /**
-     * CONSUMER
-     A consumer invokes a capability by sending the corresponding request message, and the service either rejects the
-     request or performs the requested task before sending a response message back to the consumer (Figure 1)
-     */
-
-    var imageEndpoint = null, loginEndpoint = null, logoutEndpoint = null;
-    var output = $('div#formDataDiv');
-
     $('form#uploadimageForm').submit(function(e) {
 
         var theForm = $('form#uploadimageForm')[0];
@@ -19,26 +10,23 @@ $(function() {
 
         var xhr = new XMLHttpRequest();
 
-        //var url = window.location.href + '/../api/RoutingEndpoint.php';
-
         xhr.open('POST', '../api/RoutingEndpoint.php', true);
         xhr.responseType = 'json';
+
         xhr.onload = function(e) {
-            alert("Ok we have reached the onload point of the request.");
             console.log(xhr.status);
 
             if (this.status == 200) {
                 console.log("response", this.response);
-                //var response = new JSONObject(this.response);
             }
         };
 
-
-
         xhr.send(formData);
-        //xhr.send(formdata ? formdata : form.serialize());
 
         e.preventDefault();
+
+        $('#initialForm').hide();
+        $('#initialInstructions').hide();
 
         //prevent page from submitting
         return false;
@@ -51,7 +39,6 @@ $(function() {
 
             reader.onload = function (e) {
                 $('#previewing').attr('src', e.target.result);
-                $('#previewing').attr('style', "max-width: 50%;");
             }
 
             reader.readAsDataURL(input.files[0]);

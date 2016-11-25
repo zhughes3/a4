@@ -2,35 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Drawing App | Upload Image</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="main">
-    <h1>Drawing</h1><br/>
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" class="active"><a href="#">Home</a></li>
+                <li role="presentation"><a href="#">About</a></li>
+                <li role="presentation"><a href="#">Team</a></li>
+            </ul>
+        </nav>
+        <h1 class="text-muted">Crowdsource A Memory</h1>
+    </div>
+
     <hr>
-    <p>Upload a picture to get started...</p>
-    <form enctype="multipart/form-data" method="post" id="uploadimageForm" name="fileinfo">
-        <div id="image_preview">
-            <img id="previewing" src="noimage.png" />
+
+    <div class="jumbotron row">
+        <div class="col-md-12" id="initialInstructions"><h3>Upload a picture...</h3></div>
+        <div class="col-md-12"><img id="previewing" class="img-responsive" src="" alt="" /></div>
+        <div class="col-md-12" id="initialForm">
+            <form class="form-inline" enctype="multipart/form-data" method="post" id="uploadimageForm" name="fileinfo">
+                <div class="form-group">
+                    <input type="file" name="file" id="file" required />
+                </div>
+                <div class="form-group">
+                    <label for="imageName">Name</label>
+                    <input type="text" id="imageName" name="imageName" class="form-control" required />
+                </div>
+                <button type="submit" class="btn btn-default" id="submitImageButton">Submit</button>
+            </form>
         </div>
-        <hr id="line">
-        <div id="selectImage">
-            <label>Select Your Image</label><br/>
-            <input type="file" name="file" id="file" required />
-            <input type="text" id="imageName" name="imageName" required />
-            <input type="submit" id="submitImageButton" />
-        </div>
-    </form>
+    </div>
 </div>
-<div id="formDataDiv"></div>
-<h4 id='loading' >loading..</h4>
-<div id="message"></div>
+
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
         crossorigin="anonymous"></script>
-<script src="CloudServices.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 <script src="script.js"></script>
 
 </body>

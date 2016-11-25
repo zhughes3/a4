@@ -9,6 +9,9 @@ service offer one or more capabilities and listen for requests on these capabili
 $verb = $_SERVER['REQUEST_METHOD'];
 $url = $_SERVER['REQUEST_URI'];
 
+$url_parts = explode("/", $url);
+
+
 function console_log($data){
     echo '<script>';
     echo 'console.log('. json_encode( $data ) .')';
@@ -16,7 +19,9 @@ function console_log($data){
 }
 
 //for testing purposes
-header("Content-type: text/plain");
+header("Content-type: application/json");
+
+/*
 
 echo "verb: " . $verb . " URL: " . $url;
 
@@ -36,6 +41,7 @@ if (isset($HTTP_RAW_POST_DATA)) {
 
 echo "\n\n:: Files received ::\n\n";
 print_r($_FILES);
+*/
 
 switch($verb) {
     case "GET":
@@ -43,20 +49,19 @@ switch($verb) {
         break;
     case "POST":
         $tmpPath = $_FILES['file']['tmp_name'];
-        $isFile = is_uploaded_file($_FILES['file']['tmp_name']);
+
+        $imageName = $_POST['imageName'];
 
         if (is_uploaded_file($_FILES['file']['tmp_name'])) {
-            if(intval($_SERVER['CONTENT_LENGTH'])>0 && count($_POST)===0){
-                throw new Exception('PHP discarded POST data because of request exceeding post_max_size.');
-            }
-            echo 'inside post';
-            echo(__DIR__);
+            $path = $_FILES['file']['name'];
+            $ext = pathinfo($path, PATHINFO_EXTENSION);
 
             $uploaddir = getcwd() . "/pictures/";
-            $uploadfile = $uploaddir . basename($_FILES['file']['name']);
+            $uploadfile = $uploaddir . $imageName . "." . $ext;
 
             if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
-                echo "Uploaded";
+                $data = array('href' => $uploadfile);
+                echo json_encode($data);
             } else {
                 echo "File was not uploaded";
             }
