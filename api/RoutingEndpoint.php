@@ -18,9 +18,6 @@ function console_log($data){
     echo '</script>';
 }
 
-//for testing purposes
-header("Content-type: application/json");
-
 /*
 
 echo "verb: " . $verb . " URL: " . $url;
@@ -60,9 +57,12 @@ switch($verb) {
             $uploadfile = $uploaddir . $imageName . "." . $ext;
 
             if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
-                $data = array('href' => $uploadfile);
+                //for testing purposes
+                header("Content-type: application/json", false, 201);
+                $data = array('href' => "pictures/" . $imageName . "." . $ext, 'name' => $imageName);
                 echo json_encode($data);
             } else {
+                header("Content-type: application/json", false, 400);
                 echo "File was not uploaded";
             }
         }

@@ -1,3 +1,6 @@
+<!--
+Landing page for our drawing app.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +29,11 @@
 
     <div class="jumbotron row">
         <div class="col-md-12" id="initialInstructions"><h3>Upload a picture...</h3></div>
-        <div class="col-md-12"><img id="previewing" class="img-responsive" src="" alt="" /></div>
+        <div class="col-md-12">
+            <div class="col-md-2"></div>
+            <div class="col-md-8"><img id="previewing" class="img-responsive" src="" alt="" /></div>
+            <div class="col-md-2"></div>
+        </div>
         <div class="col-md-12" id="initialForm">
             <form class="form-inline" enctype="multipart/form-data" method="post" id="uploadimageForm" name="fileinfo">
                 <div class="form-group">
@@ -38,6 +45,18 @@
                 </div>
                 <button type="submit" class="btn btn-default" id="submitImageButton">Submit</button>
             </form>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <!-- swatches -->
+        <div class="col-md-3"></div>
+
+        <!-- canvas -->
+        <div class="col-md-9">
+
+
         </div>
     </div>
 </div>
