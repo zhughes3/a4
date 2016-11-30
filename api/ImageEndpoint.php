@@ -1,37 +1,104 @@
 <?php
-if(isset($_FILES["file"]["type"]))
-{
-    $validextensions = array("jpeg", "jpg", "png");
-    $temporary = explode(".", $_FILES["file"]["name"]);
-    $file_extension = end($temporary);
-    if ((($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpg") || ($_FILES["file"]["type"] == "image/jpeg")
-        ) && ($_FILES["file"]["size"] < 100000)//Approx. 100kb files can be uploaded.
-        && in_array($file_extension, $validextensions)) {
-        if ($_FILES["file"]["error"] > 0)
-        {
-            echo "Return Code: " . $_FILES["file"]["error"] . "<br/><br/>";
-        }
-        else
-        {
-            if (file_exists("upload/" . $_FILES["file"]["name"])) {
-                echo $_FILES["file"]["name"] . " <span id='invalid'><b>already exists.</b></span> ";
-            }
-            else
-            {
-                $sourcePath = $_FILES['file']['tmp_name']; // Storing source path of the file in a variable
-                $targetPath = "upload/".$_FILES['file']['name']; // Target path where file is to be stored
-                move_uploaded_file($sourcePath,$targetPath) ; // Moving Uploaded file
-                echo "<span id='success'>Image Uploaded Successfully...!!</span><br/>";
-                echo "<br/><b>File Name:</b> " . $_FILES["file"]["name"] . "<br>";
-                echo "<b>Type:</b> " . $_FILES["file"]["type"] . "<br>";
-                echo "<b>Size:</b> " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
-                echo "<b>Temp file:</b> " . $_FILES["file"]["tmp_name"] . "<br>";
-            }
+
+require_once('functions.php');
+
+function sliceJpeg($imgPath, $sliceDir) {
+
+    list($width, $height, $type, $attr) = getimagesize($imgPath);
+
+    $img = @imagecreatefromjpeg($imgPath);
+
+    $slicewidth = 100;
+    $sliceheight = 100;
+
+    $slicesCreated = 0;
+
+    for($col = 0;$col<($width / $slicewidth); $col++) {
+        for($row=0;$row<($height / $sliceheight); $row++) {
+            $fn = sprintf("./" . $sliceDir . "/" . "img%02d_%02d.jpg", $col, $row);
+
+            $piece = @imagecreatetruecolor($slicewidth, $sliceheight);
+
+            imagecopyresized($piece, $img, 0, 0, $col * $slicewidth, $row * $sliceheight, $slicewidth, $sliceheight, $slicewidth, $sliceheight);
+
+            imagejpeg($piece, $fn);
+
+            $slicesCreated++;
+
+            imagedestroy($piece);
         }
     }
-    else
-    {
-        echo "<span id='invalid'>***Invalid file Size or Type***<span>";
-    }
+
+    return $slicesCreated;
 }
-?>
+
+$logger->log("Received request inside: " . basename(__FILE__, '.php'));
+
+$verb = $_SERVER['REQUEST_METHOD'];
+
+$url = $_SERVER['REQUEST_URI'];
+
+switch($verb) {
+    case "GET":
+        echo "Inside get";
+        break;
+    case "POST":
+        $tmpPath = $_FILES['file']['tmp_name'];
+
+        $imageName = $_POST['imageName'];
+
+        if (is_uploaded_file($_FILES['file']['tmp_name'])) {
+
+            //check to see if there was an error in the file upload
+            if ($_FILES["file"]["error"] > 0) {
+                header('Content-type: text/html', false, 400);
+                console_err("Return Code: " . $_FILES["file"]["error"] . "<br/><br/>");
+            } else {
+                //make sure file doesn't exist already
+                if (file_exists("pictures/" . $_POST['imageName'])) {
+                    header('Content-type: text/html', false, 409);
+                    echo $_POST['imageName'] . " <span id='invalid'><b>already exists.</b></span> ";
+                }
+
+                //picture is good to go
+                //make directory to house slices
+                mkdir($imageName);
+
+                $path = $_FILES['file']['name'];
+                $ext = pathinfo($path, PATHINFO_EXTENSION);
+
+                $uploaddir = getcwd() . "/pictures/";
+                $uploadfile = $uploaddir . $imageName . "." . $ext;
+
+                if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
+
+                    $logger->log("New picture uploaded to: /api/pictures/" . $imageName . "." . $ext);
+
+                    //if file has been put on the server
+                    header("Content-type: application/json", false, 201);
+
+                    $data = array(
+                        'href' => htmlentities("/api/pictures/" . $imageName . "." . $ext),
+                        'name' => $imageName,
+                        'type' => $_FILES["file"]["type"],
+                        'size' => $_FILES["file"]["size"]
+                    );
+
+                    echo json_encode($data);
+
+                    $slicesCreated = sliceJpeg($uploadfile, $imageName);
+
+                    $logger->log("Slices created: " . $slicesCreated);
+
+                } else {
+                    header("Content-type: application/json", false, 400);
+                    $data = array('error_msg' => 'File was not uploaded.');
+                    echo json_encode($data);
+                }
+            }
+
+        } else {
+            header('Content-type: text/html', false, 400);
+            echo "<p>Did you even upload a picture</p>";
+        }
+}
