@@ -49,15 +49,15 @@ Landing page for our drawing app.
     </div>
 
     <div class="row">
-        <div id="canvas-container" hidden="true">
+        <div id="canvas-container">
             <!-- swatches -->
-            <div class="col-md-3">
+            <div class="col-md-3" id="canvasSettings">
                 <input type="color" id="color-picker"><br>
-                <button type="submit" id="smallPen">Small</button>
-                <button type="submit" id="mediumPen">Medium</button>
-                <button type="submit" id="largePen">Large</button>
-                <button type="submit" id="XLPen">X-Large</button>
-                <button type="submit" id="clearCanvas">Clear Canvas</button>
+                <button type="submit" id="smallPen" class="btn btn-default">Small</button>
+                <button type="submit" id="mediumPen" class="btn btn-default">Medium</button>
+                <button type="submit" id="largePen" class="btn btn-default">Large</button>
+                <button type="submit" id="XLPen" class="btn btn-default">X-Large</button>
+                <button type="submit" class="btn btn-danger" id="clearCanvas">Clear Canvas</button>
             </div>
 
             <!-- canvas -->
