@@ -35,7 +35,7 @@ $(document).ready(function() {
 
         //clear form page and show canvas
         $('#imageUpload').hide();
-        //canvasContainer.show();
+        canvasContainer.show();
 
         //must return false to not make the browser reload the page
         return false;

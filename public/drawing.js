@@ -1,5 +1,5 @@
 
-// var canvasContainer = $('#canvas-container');
+var canvasContainer = $('#canvas-container');
 var canvas = document.getElementById('canvas');
 canvas.setAttribute('width', '800px');
 canvas.setAttribute('height', '500px');
