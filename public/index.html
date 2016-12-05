@@ -27,7 +27,7 @@ Landing page for our drawing app.
 
     <hr>
 
-    <div class="jumbotron row">
+    <div class="jumbotron row" id="imageUpload">
         <div class="col-md-12" id="initialInstructions"><h3>Upload a picture...</h3></div>
         <div class="col-md-12">
             <div class="col-md-2"><img id="leftPrev" class="img-responsive" src="" alt=""/></div>
@@ -49,14 +49,21 @@ Landing page for our drawing app.
     </div>
 
     <div class="row">
+        <div id="canvas-container" hidden="true">
+            <!-- swatches -->
+            <div class="col-md-3">
+                <input type="color" id="color-picker"><br>
+                <button type="submit" id="smallPen">Small</button>
+                <button type="submit" id="mediumPen">Medium</button>
+                <button type="submit" id="largePen">Large</button>
+                <button type="submit" id="XLPen">X-Large</button>
+                <button type="submit" id="clearCanvas">Clear Canvas</button>
+            </div>
 
-        <!-- swatches -->
-        <div class="col-md-3"></div>
-
-        <!-- canvas -->
-        <div class="col-md-9">
-
-
+            <!-- canvas -->
+            <div class="col-md-9">
+                <canvas id="canvas"></canvas>
+            </div>
         </div>
     </div>
 </div>
@@ -69,6 +76,7 @@ Landing page for our drawing app.
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 <script src="script.js"></script>
+<script src="drawing.js"></script>
 
 </body>
 </html>

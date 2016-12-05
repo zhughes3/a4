@@ -6,6 +6,7 @@ $(function() {
     var jumbotron = $('div.jumbotron.row');
     var uploadImageForm = $('form#uploadimageForm');
     var newProjectForm = $('form#newProjectForm');
+    var canvas = $('div#canvas-container');
 
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -89,15 +90,23 @@ $(function() {
         };
 
         xhr.send(formData);
+
+        jumbotron.hide();
+        canvas.show();
+
+
+
+        return false;
     });
 
     function appendUserForm() {
+        var instructions = $('<p>To officially create this project, please supply your email and first-name.</p>');
         var form = $('<div class="col-md-12" id="secondForm"><form class="form-inline" enctype="multipart/form-data" ' +
-            'method="post" id="createProject" name="projectinfo">' +
+            'method="post" id="newProjectForm" name="projectinfo">' +
             '<div class="form-group"><input type="email" name="email" class="form-control" placeholder="you@email.com" required/></div>' +
             '<div class="form-group"><input type="text" name="fname" class="form-control" placeholder="FirstName"required/></div>' +
             '<button type="submit" class="btn btn-default">Create</button></form></div>');
-        jumbotron.prepend(form);
+        jumbotron.prepend(form).prepend(instructions);
     }
 
 });
