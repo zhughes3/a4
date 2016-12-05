@@ -1,8 +1,8 @@
 
 var canvasContainer = $('#canvas-container');
 var canvas = document.getElementById('canvas');
-canvas.setAttribute('width', '800px');
-canvas.setAttribute('height', '500px');
+canvas.setAttribute('width', '300px');
+canvas.setAttribute('height', '300px');
 var context = canvas.getContext('2d');
 var colorPicker = $('#color-picker');
 var clickX = new Array();
