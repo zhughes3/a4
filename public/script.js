@@ -66,8 +66,7 @@ $(function() {
         return false;
 
     });
-
-    
+   
 
     function appendUserForm() {
         var instructions = $('<p>To officially create this project, please supply your email and first-name.</p>');
