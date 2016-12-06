@@ -50,6 +50,9 @@ $(function() {
                 mainImage.attr('src', '');
                 mainImage.attr('src', url);
 
+                //create a matrix of the image, pulling up the entire contents of the folder that was just created.
+                //put padding in between the pictures to make it look cool
+
                 leftImage.attr('src', "../api/" + encodeURI(data['name']) + "/img03_03.jpg");
                 rightImage.attr('src', "../api/" + encodeURI(data['name']) + "/img03_06.jpg");
             }
@@ -66,8 +69,7 @@ $(function() {
         return false;
 
     });
-
-    
+   
 
     function appendUserForm() {
         var instructions = $('<p>To officially create this project, please supply your email and first-name.</p>');
@@ -106,8 +108,6 @@ $(function() {
 
         jumbotron.hide();
         canvas.show();
-
-
 
         return false;
     });

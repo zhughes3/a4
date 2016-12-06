@@ -1,5 +1,5 @@
 <?php
-
+//CORS needs OPTIONS
 require_once('functions.php');
 
 function sliceJpeg($imgPath, $sliceDir) {
@@ -32,11 +32,13 @@ function sliceJpeg($imgPath, $sliceDir) {
     return $slicesCreated;
 }
 
-$logger->log("Received request inside: " . basename(__FILE__, '.php'));
-
 $verb = $_SERVER['REQUEST_METHOD'];
 
 $url = $_SERVER['REQUEST_URI'];
+
+$logger->log("Received request inside: " . basename(__FILE__, '.php'));
+$logger->log("HTTP Verb: " . $verb);
+$logger->log("HTTP URL: " . $url);
 
 switch($verb) {
     case "GET":
