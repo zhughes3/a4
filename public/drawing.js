@@ -23,7 +23,7 @@ function addClick(x, y, dragging){
     if(tool == marker){
         toolColor = colorPicker.val();
     }else{
-        toolColor = "#FFFFFF";
+        toolColor = bkgdColorPicker.val();
     }
     clickColor.push(toolColor);
     clickSize.push(toolSize);
