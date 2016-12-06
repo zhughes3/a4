@@ -52,14 +52,17 @@ Landing page for our drawing app.
         <div id="canvas-container" hidden="true">
             <!-- swatches -->
             <div class="col-md-4" id="canvasSettings">
+                <h4>Select a background color.</h4>
+                <input type="color" id="bkgd-color-picker">
                 <h4>Select a drawing tool.</h4>
                 <button type="submit" id="eraser" class="btn btn-default tool">Eraser</button>
                 <button type="submit" id="marker" class="btn btn-primary tool">Marker</button>
+                <button type="submit" id="bucket" class="btn btn-default tool">Fill</button>
                 <br/>
-                <h4>Select a color for your marker.</h4>
+                <h4>Select a color for your tool.</h4>
                 <input type="color" id="color-picker">
                 <br/>
-                <h4>Select a size for your marker.</h4>
+                <h4>Select a size for your tool.</h4>
                 <button type="submit" id="XSPen" class="btn btn-primary size">XS</button>
                 <button type="submit" id="smallPen" class="btn btn-default size">Small</button>
                 <button type="submit" id="mediumPen" class="btn btn-default size">Medium</button>

@@ -2,6 +2,8 @@ var canvasContainer = $('#canvas-container');
 var canvas = document.getElementById('canvas');
 canvas.setAttribute('width', '300px');
 canvas.setAttribute('height', '300px');
+var bkgdColorPicker = $('#bkgd-color-picker');
+
 var context = canvas.getContext('2d');
 var colorPicker = $('#color-picker');
 var clickX = new Array();
@@ -74,6 +76,10 @@ canvas.addEventListener('mouseup', function(evt) {
 
 canvas.addEventListener('mouseleave', function(evt) {
 	paint = false;
+});
+
+$('#bkgd-color-picker').on('change', function(){
+    canvas.style.backgroundColor = bkgdColorPicker.val();
 });
 
 $('#eraser').on('click', function(){
