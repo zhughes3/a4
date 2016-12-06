@@ -7,6 +7,8 @@ $(function() {
     var uploadImageForm = $('form#uploadimageForm');
     var canvas = $('div#canvas-container');
 
+    
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -59,6 +61,8 @@ $(function() {
 
         $('#initialForm').hide();
         $('#initialInstructions').hide();
+
+
 
         appendUserForm();
 

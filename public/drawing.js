@@ -8,17 +8,23 @@ var clickX = new Array();
 var clickY = new Array();
 var clickDrag = new Array();
 var paint;
+var tool = marker;
 var clickColor = new Array();
 var clickSize = new Array();
-var curColor, curSize;
+var toolColor;
+var toolSize = 3;
 
 function addClick(x, y, dragging){
     clickX.push(x);
     clickY.push(y);
     clickDrag.push(dragging);
-    curColor = colorPicker.val()
-    clickColor.push(curColor);
-    clickSize.push(curSize);
+    if(tool == marker){
+        toolColor = colorPicker.val();
+    }else{
+        toolColor = "#FFFFFF";
+    }
+    clickColor.push(toolColor);
+    clickSize.push(toolSize);
 }
 
 function redraw(){
@@ -70,6 +76,14 @@ canvas.addEventListener('mouseleave', function(evt) {
 	paint = false;
 });
 
+$('#eraser').on('click', function(){
+    tool = eraser;
+});
+
+$('#marker').on('click', function(){
+    tool = marker;
+});
+
 $('#clearCanvas').on('click', function(){
         context.clearRect(0, 0, context.canvas.width, context.canvas.height); 
         clickX = [];
@@ -79,28 +93,38 @@ $('#clearCanvas').on('click', function(){
         clickSize = [];
    });
 
+$('#XSPen').on('click', function() {
+    toolSize = 3;
+});
+
 $('#smallPen').on('click', function(){
-    curSize = 5;
+    toolSize = 7;
 });
 
 $('#mediumPen').on('click', function(){
-    curSize = 10;
+    toolSize = 12;
 });
 
 $('#largePen').on('click', function(){
-    curSize = 15;
+    toolSize = 18;
 });
 
 $('#XLPen').on('click', function(){
-    curSize = 20;
+    toolSize = 25;
 });
 
-$('#canvasSettings').on('click', '.btn-default', function(){
-   	$('.btn').removeClass('btn-primary');
-   	$('.btn').addClass('btn-default');
+$('#canvasSettings').on('click', '.btn-default.tool', function(){
+   	$('.tool').removeClass('btn-primary');
+   	$('.tool').addClass('btn-default');
    	$(this).removeClass('btn-default');
     $(this).addClass('btn-primary');
 });
 
+$('#canvasSettings').on('click', '.btn-default.size', function(){
+    $('.size').removeClass('btn-primary');
+    $('.size').addClass('btn-default');
+    $(this).removeClass('btn-default');
+    $(this).addClass('btn-primary');
+});
 
 
