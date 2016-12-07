@@ -7,7 +7,7 @@ $(function() {
     var uploadImageForm = $('form#uploadimageForm');
     var canvas = $('div#canvas-container');
 
-    
+   
 
     function readURL(input) {
         if (input.files && input.files[0]) {

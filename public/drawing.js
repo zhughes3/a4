@@ -3,35 +3,38 @@ var canvas = document.getElementById('canvas');
 canvas.setAttribute('width', '300px');
 canvas.setAttribute('height', '300px');
 var bkgdColorPicker = $('#bkgd-color-picker');
-
+bkgdColorPicker.val('#FFFFFF');
 var context = canvas.getContext('2d');
 var colorPicker = $('#color-picker');
 var clickX = new Array();
 var clickY = new Array();
 var clickDrag = new Array();
 var paint;
-var tool = marker;
+var tool = "marker";
 var clickColor = new Array();
 var clickSize = new Array();
+var clickTool = new Array();
 var toolColor;
 var toolSize = 3;
 
-function addClick(x, y, dragging){
+
+function addClick(x, y, dragging) {
     clickX.push(x);
     clickY.push(y);
     clickDrag.push(dragging);
-    if(tool == marker){
-        toolColor = colorPicker.val();
-    }else{
+    if(tool == "eraser"){
         toolColor = bkgdColorPicker.val();
+    }else{
+        toolColor = colorPicker.val();
     }
+   
     clickColor.push(toolColor);
     clickSize.push(toolSize);
 }
 
-function redraw(){
-    context.lineJoin = "round";
 
+function redraw() {
+    context.lineJoin = "round";
     for(var i = 0; i < clickX.length; i++){
         context.beginPath();
         if(clickDrag[i] && i){
@@ -42,7 +45,7 @@ function redraw(){
         context.lineTo(clickX[i], clickY[i]);
         context.closePath();
         context.strokeStyle = clickColor[i];
-        context.lineWidth = clickSize[i];
+        context.lineWidth = clickSize[i];      
         context.stroke();
     }
 }
@@ -78,19 +81,23 @@ canvas.addEventListener('mouseleave', function(evt) {
 	paint = false;
 });
 
-$('#bkgd-color-picker').on('change', function(){
+$('#bkgd-color-picker').on('change', function() {
     canvas.style.backgroundColor = bkgdColorPicker.val();
 });
 
-$('#eraser').on('click', function(){
-    tool = eraser;
+$('#eraser').on('click', function() {
+    tool = "eraser";
 });
 
-$('#marker').on('click', function(){
-    tool = marker;
+$('#marker').on('click', function() {
+    tool = "marker";
 });
 
-$('#clearCanvas').on('click', function(){
+$('#spray').on('click', function() {
+    tool = "spraypaint";
+});
+
+$('#clearCanvas').on('click', function() {
         context.clearRect(0, 0, context.canvas.width, context.canvas.height); 
         clickX = [];
         clickY = [];
@@ -103,30 +110,30 @@ $('#XSPen').on('click', function() {
     toolSize = 3;
 });
 
-$('#smallPen').on('click', function(){
+$('#smallPen').on('click', function() {
     toolSize = 7;
 });
 
-$('#mediumPen').on('click', function(){
+$('#mediumPen').on('click', function() {
     toolSize = 12;
 });
 
-$('#largePen').on('click', function(){
+$('#largePen').on('click', function() {
     toolSize = 18;
 });
 
-$('#XLPen').on('click', function(){
+$('#XLPen').on('click', function() {
     toolSize = 25;
 });
 
-$('#canvasSettings').on('click', '.btn-default.tool', function(){
+$('#canvasSettings').on('click', '.btn-default.tool', function() {
    	$('.tool').removeClass('btn-primary');
    	$('.tool').addClass('btn-default');
    	$(this).removeClass('btn-default');
     $(this).addClass('btn-primary');
 });
 
-$('#canvasSettings').on('click', '.btn-default.size', function(){
+$('#canvasSettings').on('click', '.btn-default.size', function() {
     $('.size').removeClass('btn-primary');
     $('.size').addClass('btn-default');
     $(this).removeClass('btn-default');
