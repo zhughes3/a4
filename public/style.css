@@ -20,6 +20,10 @@
 	height: 30px;
 }
 
+.form-control {
+	width: 100px;
+}
+
 
 
 #clearCanvas {

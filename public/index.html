@@ -57,17 +57,13 @@ Landing page for our drawing app.
                 <h4>Select a drawing tool.</h4>
                 <button type="submit" id="eraser" class="btn btn-default tool">Eraser</button>
                 <button type="submit" id="marker" class="btn btn-primary tool">Marker</button>
-                <button type="submit" id="spray" class="btn btn-default tool">Spraypaint</button>
+               
                 <br/>
                 <h4>Select a color for your tool.</h4>
                 <input type="color" id="color-picker">
                 <br/>
-                <h4>Select a size for your tool.</h4>
-                <button type="submit" id="XSPen" class="btn btn-primary size">XS</button>
-                <button type="submit" id="smallPen" class="btn btn-default size">Small</button>
-                <button type="submit" id="mediumPen" class="btn btn-default size">Medium</button>
-                <button type="submit" id="largePen" class="btn btn-default size">Large</button>
-                <button type="submit" id="XLPen" class="btn btn-default size">XL</button>
+                <h4>Enter a size for your tool.</h4>
+                <input type="number" class="form-control" name="Marker size" min=3 max=25 id="toolSize" value=3
                 <br/>
                 <button type="submit" class="btn btn-danger" id="clearCanvas">Clear Canvas</button>
             </div>

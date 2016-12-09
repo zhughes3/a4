@@ -6,6 +6,7 @@ var bkgdColorPicker = $('#bkgd-color-picker');
 bkgdColorPicker.val('#FFFFFF');
 var context = canvas.getContext('2d');
 var colorPicker = $('#color-picker');
+var toolSizeInput = $('#toolSize');
 var clickX = new Array();
 var clickY = new Array();
 var clickDrag = new Array();
@@ -27,7 +28,7 @@ function addClick(x, y, dragging) {
     }else{
         toolColor = colorPicker.val();
     }
-   
+    toolSize = toolSizeInput.val();
     clickColor.push(toolColor);
     clickSize.push(toolSize);
 }
@@ -155,9 +156,6 @@ $('#marker').on('click', function() {
     tool = "marker";
 });
 
-$('#spray').on('click', function() {
-    tool = "spraypaint";
-});
 
 $('#clearCanvas').on('click', function() {
         context.clearRect(0, 0, context.canvas.width, context.canvas.height); 
@@ -168,25 +166,6 @@ $('#clearCanvas').on('click', function() {
         clickSize = [];
    });
 
-$('#XSPen').on('click', function() {
-    toolSize = 3;
-});
-
-$('#smallPen').on('click', function() {
-    toolSize = 7;
-});
-
-$('#mediumPen').on('click', function() {
-    toolSize = 12;
-});
-
-$('#largePen').on('click', function() {
-    toolSize = 18;
-});
-
-$('#XLPen').on('click', function() {
-    toolSize = 25;
-});
 
 $('#canvasSettings').on('click', '.btn-default.tool', function() {
    	$('.tool').removeClass('btn-primary');
