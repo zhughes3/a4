@@ -53,8 +53,16 @@ function redraw() {
 function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
     return {
-	    x: evt.clientX - rect.left,
-        y: evt.clientY - rect.top
+	    x: (evt.clientX - rect.left),
+        y: (evt.clientY - rect.top)
+    };
+}
+
+function getTouchPos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+        x: evt.touches[0].clientX - rect.left, 
+        y: evt.touches[0].clientY - rect.top
     };
 }
 
@@ -80,6 +88,60 @@ canvas.addEventListener('mouseup', function(evt) {
 canvas.addEventListener('mouseleave', function(evt) {
 	paint = false;
 });
+
+canvas.addEventListener('touchstart', function(evt) {
+    var touchPos = getTouchPos(canvas, evt);
+    // var touch = e.touches[0];
+    // var mouseEvent = new MouseEvent("mousedown", {
+    //     clientX: touch.clientX,
+    //     clientY: touch.clientY
+    // });
+    // canvas.dispatchEvent(mouseEvent);
+    paint = true;
+    addClick(touchPos.x, touchPos.y);
+    redraw();
+});
+
+canvas.addEventListener('touchmove', function(evt) {
+    // var touch = e.touches[0];
+    // var mouseEvent = new MouseEvent("mousemove", {
+    //     clientX: touch.clientX,
+    //     clientY: touch.clientY
+    // });
+    // canvas.dispatchEvent(mouseEvent);
+    var touchPos = getTouchPos(canvas, evt);
+    if(paint){
+        addClick(touchPos.x, touchPos.y, true);
+        redraw();
+    }
+}, false);
+
+canvas.addEventListener('touchend', function(evt) {
+    // var mouseEvent = new MouseEvent("mouseup", {});
+    // canvas.dispatchEvent(mouseEvent);
+    paint = false;
+},false);
+
+document.body.addEventListener('touchstart', function(evt) {
+   if(evt.target == canvas){
+        evt.preventDefault();
+   }
+    
+}, false);
+
+document.body.addEventListener('touchend', function(evt) {
+    if(evt.target == canvas) {
+        evt.preventDefault();
+    }
+}, false);
+
+document.body.addEventListener('touchmove', function(evt) {
+    if(evt.target == canvas) {
+        evt.preventDefault();
+    }
+}, false);
+
+
 
 $('#bkgd-color-picker').on('change', function() {
     canvas.style.backgroundColor = bkgdColorPicker.val();

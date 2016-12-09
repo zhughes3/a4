@@ -7,7 +7,8 @@ $(function() {
     var uploadImageForm = $('form#uploadimageForm');
     var canvas = $('div#canvas-container');
 
-   
+    //REMOVE BEFORE PUSHING CHANGES -- using this for testing only
+    canvas.show();
 
     function readURL(input) {
         if (input.files && input.files[0]) {
