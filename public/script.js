@@ -43,7 +43,7 @@ $(function() {
 
         xhr.onload = function(e) {
             var data = this.response;
-            console.log("response", this.response);
+            console.log("response after uploading base image: ", this.response);
 
             if (this.status == 201) {
                 //cut up picture, show full picture and 3 slices at 100%
@@ -102,7 +102,7 @@ $(function() {
 
         xhr.onload = function(e) {
             var data = this.response;
-            console.log("response", this.response);
+            console.log("response after posting email and fname: ", this.response);
 
             if (this.status == 201) {
 
@@ -112,7 +112,8 @@ $(function() {
         xhr.send(formData);
 
         jumbotron.hide();
-        canvas.show();
+
+        canvas.removeClass('hidden').addClass('show');
 
         return false;
     });
