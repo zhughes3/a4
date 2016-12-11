@@ -7,6 +7,9 @@ $(function() {
     var uploadImageForm = $('form#uploadimageForm');
     var canvas = $('div#canvas-container');
 
+    //REMOVE BEFORE PUSHING CHANGES -- using this for testing only
+    canvas.show();
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -40,7 +43,7 @@ $(function() {
 
         xhr.onload = function(e) {
             var data = this.response;
-            console.log("response", this.response);
+            console.log("response after uploading base image: ", this.response);
 
             if (this.status == 201) {
                 //cut up picture, show full picture and 3 slices at 100%
@@ -62,6 +65,8 @@ $(function() {
 
         $('#initialForm').hide();
         $('#initialInstructions').hide();
+
+
 
         appendUserForm();
 
@@ -97,7 +102,7 @@ $(function() {
 
         xhr.onload = function(e) {
             var data = this.response;
-            console.log("response", this.response);
+            console.log("response after posting email and fname: ", this.response);
 
             if (this.status == 201) {
 
@@ -107,7 +112,8 @@ $(function() {
         xhr.send(formData);
 
         jumbotron.hide();
-        canvas.show();
+
+        canvas.removeClass('hidden').addClass('show');
 
         return false;
     });
