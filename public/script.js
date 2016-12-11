@@ -7,6 +7,9 @@ $(function() {
     var uploadImageForm = $('form#uploadimageForm');
     var canvas = $('div#canvas-container');
 
+    var photoDiv = $('div#photo');
+    var folder;
+
     //REMOVE BEFORE PUSHING CHANGES -- using this for testing only
     canvas.show();
 
@@ -51,6 +54,8 @@ $(function() {
                 mainImage.attr('src', '');
                 mainImage.attr('src', url);
 
+                folder = encodeURI(data['name']);
+
                 //create a matrix of the image, pulling up the entire contents of the folder that was just created.
                 //put padding in between the pictures to make it look cool
 
@@ -82,9 +87,9 @@ $(function() {
         jumbotron.prepend(form).prepend(instructions);
 
 
-    var newProjectForm = $('form#newProjectForm');
+        var newProjectForm = $('form#newProjectForm');
 
-    newProjectForm.submit(function(e) {
+        newProjectForm.submit(function(e) {
         e.stopPropagation();
         e.preventDefault();
 
@@ -109,12 +114,14 @@ $(function() {
 
         jumbotron.hide();
 
+        var imgToDraw = $('<img src="../api/' + folder + '/img02_09.jpg" alt="Crowd Src image placeholder" class="img-responsive center-block">');
+
+        photoDiv.append(imgToDraw);
+
         canvas.removeClass('hidden').addClass('show');
 
         return false;
-    });
-
-
+        });
     }
 
 });
