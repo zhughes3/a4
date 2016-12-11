@@ -73,6 +73,7 @@ switch($verb) {
                 $uploadfile = $uploaddir . $imageName . "." . $ext;
 
                 if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
+                    chmod($uploadfile, 0777);
 
                     $logger->log("New picture uploaded to: /api/pictures/" . $imageName . "." . $ext);
 
