@@ -38,4 +38,17 @@ class Image {
 		$this->name = $name;
 	}
 }
+
+public function getId() {
+	return $this->iid;
+}
+
+public function getHref() {
+	return $this->href;
+}
+
+public function getName() {
+	return $this->name;
+}
+
 ?>

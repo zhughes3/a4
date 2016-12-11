@@ -81,7 +81,7 @@ switch($verb) {
                     //TODO: Martin, this is where you insert a new Image
                     //on successful insert, you should get a new id, we need that id to insert the project tuple later
                     //return that id in the following $data array
-                    $new_image = User::addImage(htmlentities("/api/pictures/" . $imageName . "." . $ext), $imageName);
+                    $new_image = Image::addImage(htmlentities("/api/pictures/" . $imageName . "." . $ext), $imageName);
 
 
                     //if file has been put on the server

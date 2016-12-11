@@ -36,4 +36,18 @@ class User {
 		$this->fname = $fname;
 	}
 }
+
+public function getUid() {
+	return $this->uid;
+}
+
+public function getEmail() {
+	return $this->email;
+}
+
+public function getFirstName() {
+	return $this->fname;
+}
+
+
 ?>
