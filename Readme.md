@@ -1,5 +1,7 @@
 #A4: Drawing App with Restful Interface
 
+![Here is the app in action](http://i.imgur.com/3cZb9Py.png "App in action")
+
 ##Basic idea
 User goes to the app's main webpage, and  uploads an image immediately.
 This image is immediately uploaded to our server where it is sliced n pieces of equivalent square proportions. These new images, or slices, then get stored in the backend to be retrieved later.
