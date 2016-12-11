@@ -1,5 +1,5 @@
 <?php
-//CORS needs OPTIONS
+
 require_once('functions.php');
 
 function sliceJpeg($imgPath, $sliceDir) {

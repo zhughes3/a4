@@ -10,6 +10,7 @@ Landing page for our drawing app.
     <title>Drawing App | Upload Image</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Merienda|Patrick+Hand+SC|Poiret+One" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -22,7 +23,7 @@ Landing page for our drawing app.
                 <li role="presentation"><a href="#">Team</a></li>
             </ul>
         </nav>
-        <h1 class="text-muted">CrowdSRC</h1>
+        <h1 id="app-title">Crowd Src</h1>
     </div>
 
     <hr>
@@ -37,7 +38,7 @@ Landing page for our drawing app.
         <div class="col-md-12" id="initialForm">
             <form class="form-inline" enctype="multipart/form-data" method="post" id="uploadimageForm" name="fileinfo">
                 <div class="form-group">
-                    <input type="file" name="file" id="file" required />
+                    <input type="file" class="form-control-file" name="file" id="file" required />
                 </div>
                 <div class="form-group">
                     <label for="imageName">Name</label>
@@ -49,28 +50,41 @@ Landing page for our drawing app.
     </div>
 
     <div class="row">
-        <div id="canvas-container" hidden="true">
+        <div class="hidden" id="canvas-container">
             <!-- swatches -->
             <div class="col-md-4" id="canvasSettings">
-                <h4>Select a background color.</h4>
-                <input type="color" id="bkgd-color-picker">
-                <h4>Select a drawing tool.</h4>
-                <button type="submit" id="eraser" class="btn btn-default tool">Eraser</button>
-                <button type="submit" id="marker" class="btn btn-primary tool">Marker</button>
-               
-                <br/>
-                <h4>Select a color for your tool.</h4>
-                <input type="color" id="color-picker">
-                <br/>
-                <h4>Enter a size for your tool.</h4>
-                <input type="number" class="form-control" name="Marker size" min=3 max=25 id="toolSize" value=3
-                <br/>
-                <button type="submit" class="btn btn-danger" id="clearCanvas">Clear Canvas</button>
+
+                <form enctype="multipart/form-data" method="post" id="uploadDrawingForm">
+                    <div class="form-group">
+                        <label for="bkgd-color-picker">Select a background color.</label>
+                        <input class="form-control" type="color" id="bkgd-color-picker">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select a drawing tool.</label>
+                        <br>
+                        <button type="button" id="eraser" class="btn btn-default tool">Eraser</button>
+                        <button type="button" id="marker" class="btn btn-primary tool">Marker</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="color-picker">Select a color for your drawing tool.</label>
+                        <input class="form-control" type="color" id="color-picker">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="toolSize">Enter the stroke size of your tool.</label>
+                        <input type="number" class="form-control" id="toolSize" name="Marker size" min=3 max=25 value=3>
+                    </div>
+
+                    <button type="button" class="btn btn-danger" id="clearCanvas">Clear Canvas</button>
+                    <button type="submit" class="btn btn-primary" id="saveCanvas">Save Drawing</button>
+                </form>
             </div>
 
             <!-- canvas -->
             <div class="col-md-4">
-                <canvas id="canvas"></canvas>
+                <canvas id="canvas" onSelectStart="this.style.cursor='crosshair'; return false;"></canvas>
             </div>
 
             <!--photo slice -->

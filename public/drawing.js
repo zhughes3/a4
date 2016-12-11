@@ -1,4 +1,5 @@
 var canvasContainer = $('#canvas-container');
+var canvasForm = $('form#uploadDrawingForm');
 var canvas = document.getElementById('canvas');
 canvas.setAttribute('width', '300px');
 canvas.setAttribute('height', '300px');
@@ -180,5 +181,35 @@ $('#canvasSettings').on('click', '.btn-default.size', function() {
     $(this).removeClass('btn-default');
     $(this).addClass('btn-primary');
 });
+
+
+canvasForm.submit(function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    var theForm = canvasForm[0];
+
+    //formData has no relevant information, we need to send canvas
+    var formData = new FormData(theForm);
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('POST', '../api/SliceEndpoint.php', true);
+    xhr.responseType = 'json';
+
+    xhr.onload = function(e) {
+        var data = this.response;
+        console.log("response of canvas picture submit: ", this.response);
+
+        if (this.status == 201) {
+
+        }
+    };
+
+    xhr.send(formData);
+
+    return false;
+});
+
 
 

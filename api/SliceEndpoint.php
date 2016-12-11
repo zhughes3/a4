@@ -18,5 +18,10 @@ switch ($verb) {
     case "POST":
         //user has finished drawing the new slice (needs to be inserted back in place of the original)
         //make insert into database, changing done value to finished
+        $logger->log("inside post block of SliceEndpoint");
+        echo json_encode(array(
+            'slice_url' => 'sliceUrlHere',
+            'secondKey' => 'secondVal'
+        ));
         break;
 }
