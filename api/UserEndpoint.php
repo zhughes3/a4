@@ -18,7 +18,6 @@ switch($verb) {
         $firstName = $_POST['fname'];
         $email = $_POST['email'];
 
-        //TODO: we need the uid of this newly created user --> return it using the array inside json_encode
         $new_user = User::addUser($email, $firstName);
         echo json_encode(array(
             'fname' => $firstName,

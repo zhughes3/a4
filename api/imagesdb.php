@@ -16,6 +16,7 @@ class Image {
   }
 
 	public static function addImage($href, $name) {
+        global $logger;
 		$conn = Image::connect();
 		$href_es = $conn->real_escape_string($href);
 		$name_es = $conn->real_escape_string($name);
@@ -37,18 +38,17 @@ class Image {
 		$this->href = $href;
 		$this->name = $name;
 	}
-}
 
-public function getId() {
-	return $this->iid;
-}
+    public function getId() {
+        return $this->iid;
+    }
 
-public function getHref() {
-	return $this->href;
-}
+    public function getHref() {
+        return $this->href;
+    }
 
-public function getName() {
-	return $this->name;
+    public function getName() {
+        return $this->name;
+    }
 }
-
 ?>

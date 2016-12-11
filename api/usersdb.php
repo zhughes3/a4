@@ -14,15 +14,15 @@ class User {
   }
 
 	public static function addUser($email, $fname) {
+        global $logger;
 		$conn = User::connect();
 		$email = $conn->real_escape_string($email);
 		$fname = $conn->real_escape_string($fname);
 
 		$result = $conn->query("INSERT INTO User(email, fname) VALUES(" . "'" . $email . "'" . ", '" . $fname . "')");
 		if($result) {
-			print("User " . $fname . " with email " . $email . " was successfully added.");
+            $logger->log("User " . $fname . " with email " . $email . " was successfully added.");
 			return new User($conn->insert_id, $email, $fname);
-
 		}
 		else {
 			print("Error adding user " . $fname . " with email " . $email . ".");
@@ -35,19 +35,21 @@ class User {
 		$this->email = $email;
 		$this->fname = $fname;
 	}
+
+    public function getUid() {
+        return $this->uid;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function getFirstName() {
+        return $this->fname;
+    }
 }
 
-public function getUid() {
-	return $this->uid;
-}
 
-public function getEmail() {
-	return $this->email;
-}
-
-public function getFirstName() {
-	return $this->fname;
-}
 
 
 ?>

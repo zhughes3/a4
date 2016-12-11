@@ -13,9 +13,10 @@ class Project {
 		$usr = "maht33n";
 		$pw = "drawsomemoe!";
     	return new mysqli($hn, $usr, $pw, $db);
-  }
+     }
 
 	public static function addProject($uid, $iid) {
+        global $logger;
 		$conn = Project::connect();
 		$uid_es = $conn->real_escape_string($uid);
 		$iid_es = $conn->real_escape_string($iid);
@@ -23,11 +24,10 @@ class Project {
 		$result = $conn->query("INSERT INTO Project(uid, iid) VALUES(" . "'" . $uid_es . "'" . ", '" . $iid_es . "')");
 		if($result) {
 			$logger->log("Project with id " . $conn->insert_id . " was successfully added.");
-			return new Image($conn->insert_id, $uid_es, $iid_es);
-
+			return new Project($conn->insert_id, $uid_es, $iid_es);
 		}
 		else {
-			$logger->log("Error creating new project: " . $conn->error ".");
+			$logger->log("Error creating new project: " . $conn->error . ".");
 			return null;
 		}
 	}

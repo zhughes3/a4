@@ -35,6 +35,8 @@ switch ($verb) {
 
         //TODO using $dir above, scan directory to get names of all files
         //foreach ($file) insert pid, isDone, isOpen, and name of file
+        echo json_encode();
+        break;
 
 
     case "PUT":
