@@ -1,6 +1,7 @@
 <?php
 
 require_once('functions.php');
+require_once('usersdb.php');
 
 $verb = $_SERVER['REQUEST_METHOD'];
 
@@ -16,6 +17,7 @@ switch($verb) {
     case 'POST':
         $firstName = $_POST['fname'];
         $email = $_POST['email'];
+        User::addUser($email, $firstName);
         echo json_encode(array(
             'fname' => $firstName,
             'email' => $email
