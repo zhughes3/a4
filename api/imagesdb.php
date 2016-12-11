@@ -16,7 +16,7 @@ class Image {
   }
 
 	public static function addImage($href, $name) {
-		$conn = User::connect();
+		$conn = Image::connect();
 		$href_es = $conn->real_escape_string($href);
 		$name_es = $conn->real_escape_string($name);
 
