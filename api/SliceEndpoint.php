@@ -29,24 +29,35 @@ switch ($verb) {
         break;
 
     case "POST":
-        //user has finished drawing the new slice (needs to be inserted back in place of the original)
-        //make insert into database, changing done value to finished
-        $logger->log("inside post block of SliceEndpoint");
-        $saveImgTo = "pictures/canvas.jpg";
-        $dataUrl = formatDataUrl($_POST['dataUrl'], $saveImgTo);
+        //inserting slice information into database for first time
+        $projId = $_POST['pid'];
+        $dir = $_POST['name'];
 
-        if(file_exists($saveImgTo)) {
-            $logger->log("img created in pictures");
-            echo json_encode(array(
-                'data_url' => $saveImgTo
-            ));
-        } else {
-            $logger->log("img not created");
-            echo json_encode(array(
-                'error' => "some_error"
-            ));
-        }
-        break;
+        //TODO using $dir above, scan directory to get names of all files
+        //foreach ($file) insert pid, isDone, isOpen, and name of file
+
+
+    case "PUT":
+    //user has finished drawing the new slice (needs to be inserted back in place of the original)
+    //make insert into database, changing done value to finished
+    $logger->log("inside post block of SliceEndpoint");
+    $saveImgTo = "pictures/canvas.jpg";
+    $dataUrl = formatDataUrl($_POST['dataUrl'], $saveImgTo);
+
+    if(file_exists($saveImgTo)) {
+        $logger->log("img created in pictures");
+        echo json_encode(array(
+            'data_url' => $saveImgTo
+        ));
+    } else {
+        $logger->log("img not created");
+        echo json_encode(array(
+            'error' => "some_error"
+        ));
+    }
+    break;
+
+
 
     default:
         echo "error";

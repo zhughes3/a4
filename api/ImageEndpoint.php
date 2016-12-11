@@ -77,6 +77,10 @@ switch($verb) {
 
                     $logger->log("New picture uploaded to: /api/pictures/" . $imageName . "." . $ext);
 
+                    //TODO: Martin, this is where you insert a new Image
+                    //on successful insert, you should get a new id, we need that id to insert the project tuple later
+                    //return that id in the following $data array
+
                     //if file has been put on the server
                     header("Content-type: application/json", false, 201);
 
@@ -86,6 +90,8 @@ switch($verb) {
                         'type' => $_FILES["file"]["type"],
                         'size' => $_FILES["file"]["size"]
                     );
+
+
 
                     echo json_encode($data);
 
