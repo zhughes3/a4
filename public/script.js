@@ -34,8 +34,6 @@ $(function() {
         var theForm = uploadImageForm[0];
         var formData = new FormData(theForm);
 
-        formData.append('secret_token', '1234567890');
-
         var xhr = new XMLHttpRequest();
 
         xhr.open('POST', '../api/ImageEndpoint.php', true);
@@ -65,8 +63,6 @@ $(function() {
 
         $('#initialForm').hide();
         $('#initialInstructions').hide();
-
-
 
         appendUserForm();
 

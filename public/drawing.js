@@ -144,9 +144,21 @@ document.body.addEventListener('touchmove', function(evt) {
 }, false);
 
 
-
+//when user pics a background color, it isn't enough just to set the background-color
+//of the canvas object
+//you must draw a rect using the context to actually save this background as part of the picture
+//upon submit
 $('#bkgd-color-picker').on('change', function() {
-    canvas.style.backgroundColor = bkgdColorPicker.val();
+    var prevColor = context.fillStyle;
+    console.log("prev fill style: " + prevColor);
+
+    var newColor = bkgdColorPicker.val();
+
+    context.fillStyle = newColor;
+
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    context.fillStyle = prevColor;
 });
 
 $('#eraser').on('click', function() {
@@ -191,6 +203,18 @@ canvasForm.submit(function(e) {
 
     //formData has no relevant information, we need to send canvas
     var formData = new FormData(theForm);
+
+    //before getting the data url of the canvas, must do some stuff with the context to make sure
+    //bckgrd-image gets saved too
+
+    //get data url of canvas as MIME type 'image/jpeg'
+    //second param is quality of image generated
+    var dataUrl = canvas.toDataURL("image/jpeg", 1.0);
+    formData.append("dataUrl", dataUrl);
+
+    //need to also send in location of original image so that slice Endpoint can overwrite the correct
+    //file on the server
+    formData.append("location", "location of original image");
 
     var xhr = new XMLHttpRequest();
 
