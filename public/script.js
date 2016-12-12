@@ -6,12 +6,12 @@ $(function() {
     var jumbotron = $('div.jumbotron.row');
     var uploadImageForm = $('form#uploadimageForm');
     var canvas = $('div#canvas-container');
+    var drawingPage = $('div#page2');
 
     var photoDiv = $('div#photo');
     var folder;
 
-    //REMOVE BEFORE PUSHING CHANGES -- using this for testing only
-    canvas.show();
+    
 
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -118,11 +118,35 @@ $(function() {
 
         photoDiv.append(imgToDraw);
 
-        canvas.removeClass('hidden').addClass('show');
+        drawingPage.removeClass('hidden').addClass('show');
 
         return false;
         });
     }
+
+    $('#aboutButton').on('click', function() {
+        $('.show').removeClass('show').addClass('hidden');
+        $('#aboutPage').removeClass('hidden').addClass('show');
+        $('.active').removeClass('active');
+        $(this).addClass('active');
+
+    });
+
+    $('#teamButton').on('click', function() {
+        $('.show').removeClass('show').addClass('hidden');
+        $('#teamPage').removeClass('hidden').addClass('show');
+        $('.active').removeClass('active');
+        $(this).addClass('active');
+    });
+
+    $('#homeButton').on('click', function() {
+        $('.show').removeClass('show').addClass('hidden');
+        $('#page1').removeClass('hidden').addClass('show');
+        $('.active').removeClass('active');
+        $(this).addClass('active');
+
+    });
+
 
 });
 

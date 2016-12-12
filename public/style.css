@@ -40,12 +40,18 @@ input#toolSize {
 button#clearCanvas {
 	margin-bottom: 20px;
 	margin-top: 40px;
+	margin-left: 20px;
 }
 
 button#saveCanvas {
-	margin-bottom:  20px;
+	margin-bottom: 20px;
 	margin-top: 40px;
 	margin-left: 20px;
+}
+
+button#undoButton {
+	margin-bottom: 20px;
+	margin-top: 40px;
 }
 
 

@@ -21,6 +21,7 @@ $(function() {
     var clickX = new Array();
     var clickY = new Array();
     var clickDrag = new Array();
+   
     var paint;
     var tool = "marker";
     var clickColor = new Array();
@@ -28,6 +29,11 @@ $(function() {
     var clickTool = new Array();
     var toolColor;
     var toolSize = 3;
+    var imgSrc;
+    var restorePoints = new Array();
+
+    imgSrc = canvas.toDataURL("image/png");
+    restorePoints.push(imgSrc);
 
 
     function addClick(x, y, dragging) {
@@ -46,6 +52,7 @@ $(function() {
 
 
     function redraw() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
         context.lineJoin = "round";
         for(var i = 0; i < clickX.length; i++){
             context.beginPath();
@@ -60,6 +67,8 @@ $(function() {
             context.lineWidth = clickSize[i];
             context.stroke();
         }
+        imgSrc = canvas.toDataURL("image/png");
+        restorePoints.push(imgSrc);
     }
 
     function getMousePos(canvas, evt) {
@@ -77,6 +86,47 @@ $(function() {
             y: evt.touches[0].clientY - rect.top
         };
     }
+
+    //removes only 1 xy-coord at a time
+   $('#undoButton').on('click', function() {     
+        var img = new Image();
+        restorePoints.pop();
+        img.src = restorePoints[restorePoints.length-1];
+        img.onload = function() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(img, 0, 0);
+        }   
+        clickX.pop();
+        clickY.pop();
+        clickDrag.pop();
+        clickColor.pop();
+        clickSize.pop();
+        clickTool.pop();
+    });
+
+   //hold undo button to remove more than just one xy-coord at a time
+   var interval;
+   $('#undoButton').on('mousedown', function() {
+        interval = setInterval(function() {
+            var img = new Image();
+            restorePoints.pop();
+            img.src = restorePoints[restorePoints.length-1];
+            img.onload = function() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.drawImage(img, 0, 0);
+            }   
+            clickX.pop();
+            clickY.pop();
+            clickDrag.pop();
+            clickColor.pop();
+            clickSize.pop();
+            clickTool.pop();
+        }, 100);
+   });
+
+   $('#undoButton').on('mouseup', function(){
+        clearInterval(interval);
+   });
 
     canvas.addEventListener('mousemove', function(evt) {
         var mousePos = getMousePos(canvas, evt);

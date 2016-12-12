@@ -18,16 +18,16 @@ Landing page for our drawing app.
     <div class="header clearfix">
         <nav>
             <ul class="nav nav-pills pull-right">
-                <li role="presentation" class="active"><a href="#">Home</a></li>
-                <li role="presentation"><a href="#">About</a></li>
-                <li role="presentation"><a href="#">Team</a></li>
+                <li role="presentation" class="active" id="homeButton"><a href="#">Home</a></li>
+                <li role="presentation" id="aboutButton"><a href="#">About</a></li>
+                <li role="presentation" id="teamButton"><a href="#">Team</a></li>
             </ul>
         </nav>
         <h1 id="app-title">Crowd Src</h1>
     </div>
 
     <hr>
-
+    <div id="page1" class="show">
     <div class="jumbotron row" id="imageUpload">
         <div class="col-md-12" id="initialInstructions"><h3>Upload a picture...</h3></div>
         <div class="col-md-12">
@@ -48,9 +48,11 @@ Landing page for our drawing app.
             </form>
         </div>
     </div>
+    </div>
 
+    <div id="page2" class="hidden">
     <div class="row">
-        <div class="hidden" id="canvas-container">
+        <div id="canvas-container">
             <!-- swatches -->
             <div class="col-md-4" id="canvasSettings">
 
@@ -76,7 +78,7 @@ Landing page for our drawing app.
                         <label for="toolSize">Enter the stroke size of your tool.</label>
                         <input type="number" class="form-control" id="toolSize" name="Marker size" min=3 max=25 value=3>
                     </div>
-
+                    <button type="button" class="btn btn-primary" id="undoButton">Undo</button>
                     <button type="button" class="btn btn-danger" id="clearCanvas">Clear Canvas</button>
                     <button type="submit" class="btn btn-primary" id="saveCanvas">Save Drawing</button>
                 </form>
@@ -94,6 +96,16 @@ Landing page for our drawing app.
             </div>
         </div>
     </div>
+    </div>
+
+    <div id="aboutPage" class="hidden">
+        <div><h3>About</h3></div>
+    </div>
+
+    <div id="teamPage" class="hidden">
+        <div><h3>Team</h3></div>
+    </div>
+
 </div>
 
 
