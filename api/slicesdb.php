@@ -50,10 +50,11 @@ class Slice {
 		return $this->name;
 	}
 
-	public static function getNextOpenSlice() {
+	// returns the next slice specified by the name
+	public static function getNextOpenSlice($name) {
 		global $logger;
 		$conn = Slice::connect();
-		$result = $conn->query("SELECT sid, pid, name FROM Slice WHERE isOpen = 1 ORDER BY sid ASC");
+		$result = $conn->query("SELECT sid, pid, name FROM Slice WHERE isOpen = 1 AND name = " . $name . " ORDER BY sid ASC");
 		if($result) {
 			if($result->num_rows == 0)
 				return null;

@@ -19,8 +19,11 @@ switch($verb) {
         $imgId = $_POST['iid'];
         //TODO: using var's above, insert a new tuple into Project
         //return pid
+        $proj = Project::addProject($userId, $imgId);
+        $proj_id = $proj.getPid();
+
         echo json_encode(array(
-            'pid' => 'PID_GOES_HERE'
+            'pid' => $proj_id
         ));
         break;
     default:

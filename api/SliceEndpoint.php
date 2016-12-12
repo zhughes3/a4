@@ -26,12 +26,17 @@ switch ($verb) {
         //open connection to slice database
         //using supplied name of base picture, grab the next picture that hasn't been drawn
         //return url of that picture in $data object
+        // TODO: Zach, where is the supplied name for the base picture? Using $name for now
+        $slice = Slice::getNextOpenSlice($name);
+        $slice.closeSlice();
+        // TODO: Zach, Is the URL inside the slice object? If not, then I could modify the query in getNextOpenSlice to get that info as well. 
         break;
 
     case "POST":
         //inserting slice information into database for first time
         $projId = $_POST['pid'];
         $dir = $_POST['name'];
+        // TODO: Zach, where is the data for the slices coming from? 
 
         //TODO using $dir above, scan directory to get names of all files
         //foreach ($file) insert pid, isDone, isOpen, and name of file
@@ -58,6 +63,9 @@ switch ($verb) {
         ));
     }
     break;
+
+    //TODO: Zach, get the slice object and mark it as done using the function below:
+    $slice_obj.finishSlice();
 
 
 
