@@ -5,8 +5,6 @@ require_once('functions.php');
 class Slice {
 	private $sid;
 	private $pid;
-	private $isDone;
-	private $isOpen;
 	private $name;
 
 	 public static function connect() {
@@ -50,6 +48,35 @@ class Slice {
 
 	public function getName() {
 		return $this->name;
+	}
+
+	public static function getNextOpenSlice() {
+		global $logger;
+		$conn = Slice::connect();
+		$result = $conn->query("SELECT sid, pid, name FROM Slice WHERE isOpen = 1 ORDER BY sid ASC");
+		if($result) {
+			if($result->num_rows == 0)
+				return null;
+			else {
+				$row = $result->fetch_assoc();
+				return new Slice($row["sid"], $row["pid"], $row["name"]);
+			}
+		}
+		else {
+			$logger->log("Unknown error retrieving the next available slice: " . $conn->error);
+			return null;
+		}
+
+	}
+	/**
+	 *  Marks a slice as no longer being open for editing
+	 */
+	public function closeSlice() {
+		$conn->query("UPDATE Slice SET isOpen = 0 WHERE sid = " . $this->sid);
+	}
+
+	public function finishSlice() {
+		$conn->query("UPDATE Slice SET isDone = 1 WHERE sid = " . $this->sid);
 	}
 }
 ?>
