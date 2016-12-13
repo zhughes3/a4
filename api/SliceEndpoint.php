@@ -28,7 +28,7 @@ switch ($verb) {
         //return url of that picture in $data object
         // TODO: Zach, where is the supplied name for the base picture? Using $name for now
         $slice = Slice::getNextOpenSlice($name);
-        $slice.closeSlice();
+        $slice->closeSlice();
         // TODO: Zach, Is the URL inside the slice object? If not, then I could modify the query in getNextOpenSlice to get that info as well. 
         break;
 
@@ -65,7 +65,7 @@ switch ($verb) {
     break;
 
     //TODO: Zach, get the slice object and mark it as done using the function below:
-    $slice_obj.finishSlice();
+    $slice_obj->finishSlice();
 
 
 

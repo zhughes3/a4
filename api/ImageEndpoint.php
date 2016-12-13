@@ -82,7 +82,7 @@ switch($verb) {
                     //on successful insert, you should get a new id, we need that id to insert the project tuple later
                     //return that id in the following $data array
                     $new_image = Image::addImage(htmlentities("/api/pictures/" . $imageName . "." . $ext), $imageName);
-                    $imgId = $new_image.getId();
+                    $imgId = $new_image->getId();
 
 
                     //if file has been put on the server

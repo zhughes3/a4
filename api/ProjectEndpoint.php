@@ -20,7 +20,7 @@ switch($verb) {
         //TODO: using var's above, insert a new tuple into Project
         //return pid
         $proj = Project::addProject($userId, $imgId);
-        $proj_id = $proj.getPid();
+        $proj_id = $proj->getPid();
 
         echo json_encode(array(
             'pid' => $proj_id
